@@ -1,0 +1,15 @@
+<div id="new-trip">
+	<form class="form-stacked" method="POST" action="/trips">
+		<input type="hidden" id="user_id" name="user_id" value="<%=current_user[:id] %>" />
+		<div class="control-group">
+			<label for="title" class="control-label">Trip Name</label>
+			<div class="controls">
+				<input type="text" id="title" name="title" class="input-large" required />
+			</div>
+		</div>
+		<div class="form-actions">
+			<button class="btn btn-primary">Add Trip</button> 
+			<%= link_to "Cancel", root_url %>
+		</div>
+	</form>
+</div>

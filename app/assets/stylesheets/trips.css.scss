@@ -1,0 +1,33 @@
+.simple-gradient { background: #fafafa; /* Old browsers */
+		background: -moz-linear-gradient(top,  #fafafa 0%, #ededed 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fafafa), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  #fafafa 0%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  #fafafa 0%,#ededed 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  #fafafa 0%,#ededed 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  #fafafa 0%,#ededed 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */ }
+
+/* Trip */
+.trip-nodes { box-shadow:0 1px 3px rgba(0, 0, 0, 0.4); }
+	.trip-node { padding:1em 0;position:relative;border-bottom:1px solid #e6e6e6;box-shadow:inset 1px 1px 1px rgba(255, 255, 255, 0.8);
+		@extend .simple-gradient; }
+		.trip-node strong { padding:0 0.5em;font-size:2.2em;border-right:1px solid #fafafa;box-shadow:inset -1px 0 0 rgba(0, 0, 0, 0.05); }
+		.trip-node a { color:#aaa;font-size:0.9em;text-decoration:none }
+		.trip-node:hover a { color:inherit; }
+		.trip-node-date { }
+			.trip-node-date-date { color:#666;font-size:0.9em;font-weight:bold;text-transform:uppercase; }
+		.trip-node .close { position:absolute;top:0.5em;right:0.5em; }
+
+.trip-map { height:400px;box-shadow:0 1px 3px rgba(0, 0, 0, 0.4); } 
+
+
+.cal { box-shadow:0 1px 3px rgba(0, 0, 0, 0.4); }
+	.cal header { padding:8px 0;text-align:center;font-size:1.1em;font-weight:bold;@extend .simple-gradient; }
+	.cal-body { background-color:#d0d0d0; }
+		.cal-daysnames { @extend .simple-gradient; }
+			.cal-dayname { float:left;padding:5px 0;width:14.2857143%;text-align:center;text-transform:uppercase;font-size:0.9em; }
+		.cal-days { border-top:1px solid #ddd;@extend .simple-gradient; }
+			.cal-day { float:left;position:relative;width:14.2857143%;min-height:5em;margin-left:-1px;border-left:1px solid #ddd;box-shadow:inset 1px 1px 0 rgba(255, 255, 255, 0.8); }
+				.cal-day-date { position:absolute;top:0.25em;left:4px;z-index:1;font-size:3.6em;font-weight:bold;color:#ddd;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8); }
+				.cal-node { display:block;position:relative;z-index:2;margin:2px 4px 1px;padding:0 2px;color:#fff;font-weight:bold;font-size:0.8em;box-shadow:0 1px 1px rgba(0, 0, 0, 0.2);
+					background-color:rgba(20, 200, 100, 0.5);border-radius:2px; }

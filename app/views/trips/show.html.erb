@@ -1,0 +1,54 @@
+<div id="trip" data-id="<%= @trip.id %>">
+	<h1><%= @trip[:title] %></h1>
+
+	<div class="row-fluid">
+		<div class="span4">
+			<ul id="trip-nodes" class="unstyled trip-nodes"></ul>
+			<div class="well">
+				<h4>Let's start your journey. What's the first leg?</h4>
+				<form id="trip-nodes-new" class="form-horizontal">
+					<ul class="unstyled">
+						<li class="control-group">
+							<label class="control-label" for="address-start">Leaving From</label>
+							<div class="controls">
+								<input type="text" id="address-start" class="input-large" required />
+							</div>
+						</li>
+						<li class="control-group">
+							<label class="control-label" for="address-end">Going To</label>
+							<div class="controls">
+								<input type="text" id="address-end" class="input-large" required />
+							</div>
+						</li>
+					</ul>
+					<div class="form-actions">
+						<button id="trip-nodes-new-btn" class="btn btn-primary">Add</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="span4">
+			<div id="trip-map" class="trip-map">
+			</div>
+		</div>
+		<div class="span4">
+			<div id="trip-cal" class="cal">
+			</div>
+		</div>
+	</div>
+</div>
+
+<% content_for :js do %>
+	<script src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+	<script>
+		$(function() {
+			TinyTrip.Manager({
+				components: {
+					trip: TinyTrip.Trips(),
+					map: TinyTrip.Map({ id:'trip-map' }),
+					cal: TinyTrip.Calendar({ id:'trip-cal' })
+				}
+			}).init();
+		});
+	</script>
+<% end %>

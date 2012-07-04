@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tinytrip</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+	<div id="container">
+		<header id="header" class="navbar">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a href="/" class="brand">TinyTrip<span>alpha</span></a>
+				</div>
+			</div>
+		</header>
+		<div id="content" class="container-fluid">
+			<div id="content-inner" class="row-fluid">
+				<%= yield %>
+			</div>
+		</div>
+	</div>
+	<%= javascript_include_tag "application" %>
+	<%= yield :js %>
+</body>
+</html>
