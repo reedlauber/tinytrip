@@ -1,6 +1,6 @@
 class GeocodeController < ApplicationController
 	def search
-		addresses = params[:addresses].split '|'
+		addresses = params[:addresses].split '-'
 		addresses.map! { |address| URI::encode_www_form_component address }
 
 		start_url = "http://maps.googleapis.com/maps/api/geocode/json?address=#{addresses[0]}&sensor=false"

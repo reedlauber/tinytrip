@@ -1,11 +1,11 @@
 <div id="trip" data-id="<%= @trip.id %>">
 	<h1><%= @trip[:title] %></h1>
 
-	<div class="row-fluid">
+	<div class="row-fluid fixed-container">
 		<div class="span4">
 			<ul id="trip-nodes" class="unstyled trip-nodes"></ul>
 			<div class="well">
-				<h4>Let's start your journey. What's the first leg?</h4>
+				<h4>Add a leg to your journey.</h4>
 				<form id="trip-nodes-new" class="form-horizontal">
 					<ul class="unstyled">
 						<li class="control-group">
@@ -20,6 +20,21 @@
 								<input type="text" id="address-end" class="input-large" required />
 							</div>
 						</li>
+						<li class="control-group">
+							<label class="control-label" for="node-type">Travel Type</label>
+							<div class="controls">
+								<select id="node-type" name="node_type">
+									<option value="drive">Drive</option>
+									<option value="fly">Fly</option>
+								</select>
+							</div>
+						</li>
+						<li class="control-group">
+							<label class="control-label" for="starts_on">Travel Date</label>
+							<div class="controls">
+								<input type="date" id="starts-on" name="starts_on" class="input-small" required />
+							</div>
+						</li>
 					</ul>
 					<div class="form-actions">
 						<button id="trip-nodes-new-btn" class="btn btn-primary">Add</button>
@@ -28,7 +43,9 @@
 			</div>
 		</div>
 		<div class="span4">
-			<div id="trip-map" class="trip-map">
+			<div id="trip-map" class="map">
+				<div id="trip-map-inner" class="map-inner">
+				</div>
 			</div>
 		</div>
 		<div class="span4">

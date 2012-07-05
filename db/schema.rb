@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120704160023) do
+ActiveRecord::Schema.define(:version => 20120705190502) do
 
   create_table "locations", :force => true do |t|
     t.string   "title"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20120704160023) do
   create_table "nodes", :force => true do |t|
     t.string   "title"
     t.integer  "trip_id"
-    t.string   "type"
+    t.string   "node_type"
     t.integer  "position"
     t.datetime "starts_on"
     t.datetime "ends_on"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20120704160023) do
     t.integer  "start_location_id"
     t.integer  "end_location_id"
     t.text     "polyline"
+    t.string   "distance"
   end
 
   create_table "trips", :force => true do |t|

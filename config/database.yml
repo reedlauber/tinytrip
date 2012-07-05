@@ -1,0 +1,14 @@
+default: &DEFAULT
+  adapter: postgresql
+  encoding: utf8
+  min_messages: warning
+  database: tinytrip_dev
+development:
+  <<: *DEFAULT
+  database: tinytrip_dev
+test:
+  <<: *DEFAULT
+  database: tinytrip_test
+production:
+  <<: *DEFAULT
+  database: tinytrip_prod

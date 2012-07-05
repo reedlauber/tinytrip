@@ -13,6 +13,7 @@
 						'{{/days}}',
 					'</div>',
 					'{{/weeks}}'].join(''),
+		_nodeTmpl = ['<span class="cal-node{{#fly}} cal-node-fly{{/fly}}" data-id="{{id}}">{{position}}.</span>'].join(''),
 		_dayNames = [{ name:'Sun' }, { name:'Mon' }, { name:'Tue' }, { name:'Wed' }, { name:'Thu' }, { name:'Fri' }, { name:'Sat' }];
 
 	var $header,
@@ -47,21 +48,29 @@
 		$header = $('<header />').appendTo($cal);
 		$body = $('<div class="row-fluid cal-body" />').appendTo($cal);
 
+        this.manager.registerFixed($cal);
+
 		_render(_today.getMonth() + 1);
 
 		$(TT).bind('nodes-received', function(evt, nodes) {
 			var firstDate;
 			$.each(nodes, function(i, node) {
-				(function(node) {
-					var date = node.starts_on && S.Util.parseDate(node.starts_on);
-					if(!firstDate && date) {
-						firstDate = date;
-					}
-					if(date) {
-						$('.cal-day[data-day=' + date.getDate() + ']', $cal).append('<span class="cal-node">' + node.position + '.</span>');
-					}
-				})(node.node);
+				var date = node.starts_on && S.Util.parseDate(node.starts_on);
+				if(!firstDate && date) {
+					firstDate = date;
+				}
+				if(date) {
+					$('.cal-day[data-day=' + date.getDate() + ']', $cal).append(S.tmpl(_nodeTmpl, node));
+				}
 			});
+		});
+
+		$(TT).bind('node-date-changed', function(evt, node) {
+			$('.cal-day[data-id=' + node.id + ']').remove();
+			var date = node.starts_on && S.Util.parseDate(node.starts_on);
+			if(date) {
+				$('.cal-day[data-day=' + date.getDate() + ']', $cal).append(S.tmpl(_nodeTmpl, node));
+			}
 		});
 	});
 })(TinyTrip, Sour);

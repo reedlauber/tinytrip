@@ -1,21 +1,15 @@
 class NodesController < ApplicationController
 	def index
-		full_nodes = []
+		nodes = Node.includes(:start_location, :end_location).where("trip_id = ?", params[:trip_id]).order("position")
 
-		Node.includes(:start_location, :end_location).where("trip_id = ?", params[:trip_id]).order("position").each do |node|
-			full_nodes << {
-				:node => node,
-				:start_location => node.start_location,
-				:end_location => node.end_location
-			}
-		end
+		# nodes.each do |node|
+		# 	node.directions = ActiveSupport::JSON.decode(node.directions) if node.directions
+		# end
 
-		render :json => { :nodes => full_nodes }
+		render :json => { :nodes => nodes }.to_json(:include => [:start_location, :end_location])
 	end
 
 	def create
-		polyline = node_directions
-
 		start_location = Location.new
 		start_location.title = params[:start_title]
 		start_location.address = params[:start_address]
@@ -37,14 +31,18 @@ class NodesController < ApplicationController
 
 		node = Node.new
 		node.trip_id = params[:trip_id]
+		node.node_type = params[:node_type]
 		node.title = params[:title]
+		node.starts_on = params[:starts_on]
 		node.position = params[:position]
-		node.start_location_id = start_location.id
-		node.end_location_id = end_location.id
-		node.polyline = polyline
+		node.duration = params[:duration]
+		node.distance = params[:distance]
+		node.polyline = params[:polyline]
+		node.start_location = start_location
+		node.end_location = end_location
 		node.save
 
-		render :json => { :node => node, :start_location => start_location, :end_location => end_location }
+		render :json => node.to_json(:include => [:start_location, :end_location])
 	end
 
 	def update
@@ -55,7 +53,7 @@ class NodesController < ApplicationController
 			node.save
 		end
 
-		render :json => { :success => true }
+		render :json => node.to_json(:include => [:start_location, :end_location])
 	end
 
 	def destroy
@@ -64,6 +62,8 @@ class NodesController < ApplicationController
 		trip_id = node.trip_id
 
 		if(node != nil)
+			node.start_location.destroy if node.start_location
+			node.end_location.destroy if node.end_location
 			node.destroy
 		end
 
@@ -80,7 +80,7 @@ class NodesController < ApplicationController
 
 	private
 	def node_params
-		params.permit(:trip_id, :position)
+		params.permit(:trip_id, :position, :node_type)
 	end
 
 	def node_directions
