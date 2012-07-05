@@ -14,8 +14,9 @@
 		.trip-node strong { padding:0 0.5em;font-size:2.2em;border-right:1px solid #fafafa;box-shadow:inset -1px 0 0 rgba(0, 0, 0, 0.05); }
 		.trip-node a { color:#aaa;font-size:0.9em;text-decoration:none }
 		.trip-node:hover a { color:inherit; }
-		.trip-node-title { font-weight:bold; }
-		.trip-node-detail { color:#666;font-size:0.9em;font-weight:bold;text-transform:uppercase; }
+		.trip-node-title { color:#4a4a4a;font-size:1.2em;font-weight:bold; }
+		.trip-node-detail { margin-right:8px;font-size:0.9em;text-transform:uppercase; }
+		.trip-node-duration { text-transform:inherit; }
 		.trip-node-date { }
 			.trip-node-date-date { }
 		.trip-node .close { position:absolute;top:0.5em;right:0.5em; }
@@ -26,14 +27,22 @@
 
 .cal { box-shadow:0 1px 3px rgba(0, 0, 0, 0.4); }
 	.cal header { padding:8px 0;text-align:center;font-size:1.1em;font-weight:bold;@extend .simple-gradient; }
+		.cal-prev { float:left;margin-left:8px;cursor:pointer; }
+		.cal-next { float:right;margin-right:8px;cursor:pointer; }
+		.cal-prev:hover { box-shadow:0 0 1px rgba(0, 0, 0, 0.1); }
 	.cal-body { background-color:#d0d0d0; }
 		.cal-daysnames { @extend .simple-gradient; }
 			.cal-dayname { float:left;padding:5px 0;width:14.2857143%;text-align:center;text-transform:uppercase;font-size:0.9em; }
 		.cal-days { border-top:1px solid #ddd;@extend .simple-gradient; }
 			.cal-day { float:left;position:relative;width:14.2857143%;min-height:5em;margin-left:-1px;border-left:1px solid #ddd;box-shadow:inset 1px 1px 0 rgba(255, 255, 255, 0.8); }
 				.cal-day-date { position:absolute;top:0.25em;left:4px;z-index:1;font-size:3.6em;font-weight:bold;color:#ddd;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8); }
-				.cal-node { display:block;position:relative;z-index:2;margin:2px 4px 1px;padding:0 2px;color:#fff;font-weight:bold;font-size:0.8em;box-shadow:0 1px 1px rgba(0, 0, 0, 0.2);
-					background-color:rgba(30, 50, 200, 0.5);border-radius:2px; }
+				.cal-node { display:block;position:relative;z-index:2;margin:2px 4px 1px;padding:0 4px;color:#fff;font-weight:bold;font-size:0.8em;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+					box-shadow:0 1px 1px rgba(0, 0, 0, 0.2);background-color:rgba(30, 50, 200, 0.5);border-radius:2px; }
 				.cal-node-fly { background-color:rgba(30, 200, 70, 0.5); }
 
 .trip-fixed { position:fixed;top:8px; }
+
+@media (max-width: 1400px) {
+	.trip-widgets .row-fluid .span6 { float:none;margin-left:0;width:auto; }
+		.cal { margin-top:2em; }
+}

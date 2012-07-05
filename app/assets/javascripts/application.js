@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require vendor/bootstrap.min
 //= require vendor/mustache
 //= require vendor/date
 //= require vendor/sour

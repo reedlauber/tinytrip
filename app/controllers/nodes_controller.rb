@@ -2,42 +2,14 @@ class NodesController < ApplicationController
 	def index
 		nodes = Node.includes(:start_location, :end_location).where("trip_id = ?", params[:trip_id]).order("position")
 
-		# nodes.each do |node|
-		# 	node.directions = ActiveSupport::JSON.decode(node.directions) if node.directions
-		# end
-
 		render :json => { :nodes => nodes }.to_json(:include => [:start_location, :end_location])
 	end
 
 	def create
-		start_location = Location.new
-		start_location.title = params[:start_title]
-		start_location.address = params[:start_address]
-		start_location.city = params[:start_city]
-		start_location.state = params[:start_state]
-		start_location.lat = params[:start_lat]
-		start_location.lon = params[:start_lon]
+		start_location = Location.create(start_location_params)
+		end_location = Location.create(end_location_params)
 
-		end_location = Location.new
-		end_location.title = params[:end_title]
-		end_location.address = params[:end_address]
-		end_location.city = params[:end_city]
-		end_location.state = params[:end_state]
-		end_location.lat = params[:end_lat]
-		end_location.lon = params[:end_lon]
-
-		start_location.save
-		end_location.save
-
-		node = Node.new
-		node.trip_id = params[:trip_id]
-		node.node_type = params[:node_type]
-		node.title = params[:title]
-		node.starts_on = params[:starts_on]
-		node.position = params[:position]
-		node.duration = params[:duration]
-		node.distance = params[:distance]
-		node.polyline = params[:polyline]
+		node = Node.create(node_params)
 		node.start_location = start_location
 		node.end_location = end_location
 		node.save
@@ -80,17 +52,28 @@ class NodesController < ApplicationController
 
 	private
 	def node_params
-		params.permit(:trip_id, :position, :node_type)
+		params.permit(:trip_id, :position, :node_type, :title, :starts_on, :duration, :distance, :polyline)
 	end
 
-	def node_directions
-		origin = URI::encode_www_form_component params[:start_title]
-		destination = URI::encode_www_form_component params[:end_title]
-		url = "http://maps.googleapis.com/maps/api/directions/json?origin=#{origin}&destination=#{destination}&sensor=false"
-		logger.info url
-		resp = Curl.get url
-		resp_obj = ActiveSupport::JSON.decode(resp.body_str)
-		encoded_polyline = resp_obj["routes"][0]["overview_polyline"]["points"]
-		encoded_polyline
+	def start_location_params
+		{
+			:title => params[:start_title],
+			:address => params[:start_address],
+			:city => params[:start_city],
+			:state => params[:start_state],
+			:lat => params[:start_lat],
+			:lon => params[:start_lon]	
+		}
+	end
+
+	def end_location_params
+		{
+			:title => params[:end_title],
+			:address => params[:end_address],
+			:city => params[:end_city],
+			:state => params[:end_state],
+			:lat => params[:end_lat],
+			:lon => params[:end_lon]	
+		}
 	end
 end
