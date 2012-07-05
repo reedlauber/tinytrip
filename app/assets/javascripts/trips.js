@@ -8,11 +8,12 @@
 						'</span>',
 						'<span class="span10">',
 							'<p class="trip-node-title">{{title}}</p>',
-							'<span class="trip-node-duration trip-node-detail label">{{duration}}</span>',
+							'<span class="trip-node-detail"><span class="icon-{{icon}}"></span></span>',
 							'<span class="trip-node-date">',
 								'{{#has_starts_on}}<span class="trip-node-date-date trip-node-detail label label-info">{{starts_on_formatted}}</span>{{/has_starts_on}}',
 								'{{^has_starts_on}}<a href="javascript:void(0)" class="trip-node-date-add">Add Date</a>{{/has_starts_on}}',
 							'</span>',
+							'<span class="trip-node-duration trip-node-detail label">{{duration}}</span>',
 							'<span class="close">&times;</span>',
 						'</span>',
 					'</li>'].join('');
@@ -91,6 +92,7 @@
 		}
 
 		node.fly = node.node_type === 'fly';
+		node.icon = node.fly ? 'plane' : 'truck';
 
 		var html = S.tmpl(_nodeTmpl, node);
 

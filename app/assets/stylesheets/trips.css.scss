@@ -16,6 +16,8 @@
 		.trip-node:hover a { color:inherit; }
 		.trip-node-title { color:#4a4a4a;font-size:1.2em;font-weight:bold; }
 		.trip-node-detail { margin-right:8px;font-size:0.9em;text-transform:uppercase; }
+		.trip-node-detail .icon-truck { color:rgba(30, 50, 200, 0.75); }
+		.trip-node-detail .icon-plane { color:rgba(30, 200, 70, 0.75); }
 		.trip-node-duration { text-transform:inherit; }
 		.trip-node-date { }
 			.trip-node-date-date { }
